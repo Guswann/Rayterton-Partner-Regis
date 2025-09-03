@@ -1,4 +1,4 @@
-/* General layout */
+/* ========== Global Layout ========== */
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -6,63 +6,160 @@ body {
     color: #333;
 }
 
-/* Form styling */
+h2 {
+    margin-bottom: 20px;
+    color: #222;
+}
+
+/* ========== Link Navigasi ========== */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ========== FORM STYLING ========== */
 form {
-    background: white;
+    background: #fff;
     padding: 20px;
     margin-bottom: 40px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    max-width: 600px;
+    max-width: 900px;
 }
+
+/* Wrapper agar form center */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* biar dari atas, bukan benar2 tengah layar */
+    min-height: 100vh;
+    padding-top: 40px;
+}
+
+/* Kalau mau benar-benar di tengah layar penuh, bisa ganti align-items ke center */
+
 
 form h2 {
     margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+/* Grid untuk input form */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Field yang full width */
+.form-full {
+    grid-column: span 2;
 }
 
 input, select, textarea {
-    display:block;
-    margin-bottom:15px;
-    width:100%;
-    padding:10px;
-    border:1px solid #ccc;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
     border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background: #fafafa;
+    transition: border 0.2s;
 }
 
+input:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    background: #fff;
+}
+
+/* Tombol submit */
 input[type=submit] {
-    background:#007bff;
-    color:white;
-    border:none;
-    cursor:pointer;
-    transition:0.3s;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 6px;
 }
 
 input[type=submit]:hover {
-    background:#0056b3;
+    background: #0056b3;
 }
 
-/* Table styling */
+/* ========== TABLE STYLING ========== */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    background:white;
-    border-radius:8px;
-    overflow:hidden;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 th, td {
-    border:1px solid #ddd;
-    padding:10px;
-    text-align:left;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+    vertical-align: top;
 }
 
 th {
-    background:#007bff;
-    color:white;
+    background: #007bff;
+    color: white;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
 }
 
 tr:nth-child(even) {
-    background:#f2f2f2;
+    background: #f9f9f9;
+}
+
+/* ========== RESPONSIVE TABLE ========== */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .form-full {
+        grid-column: span 1;
+    }
+
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    th {
+        display: none;
+    }
+
+    tr {
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        background: #fff;
+    }
+
+    td {
+        border: none;
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 5px;
+    }
+
+    td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #555;
+    }
 }
