@@ -1,165 +1,305 @@
-/* ========== Global Layout ========== */
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f8f9fa;
-    color: #333;
+/* CONTENT */
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 24px;
 }
 
-h2 {
-    margin-bottom: 20px;
-    color: #222;
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
-/* ========== Link Navigasi ========== */
-a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
+.subtitle {
+  color: #6B7280;
+  margin-bottom: 32px;
 }
 
-a:hover {
-    text-decoration: underline;
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
 }
 
-/* ========== FORM STYLING ========== */
-form {
-    background: #fff;
-    padding: 20px;
-    margin-bottom: 40px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    max-width: 900px;
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 24px;
 }
 
-/* Wrapper agar form center */
-.form-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* biar dari atas, bukan benar2 tengah layar */
-    min-height: 100vh;
-    padding-top: 40px;
+/* FORM */
+.form-group {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Kalau mau benar-benar di tengah layar penuh, bisa ganti align-items ke center */
-
-
-form h2 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 20px;
+.form-row {
+  display: flex;
+  gap: 16px;
 }
 
-/* Grid untuk input form */
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-/* Field yang full width */
-.form-full {
-    grid-column: span 2;
+label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
 }
 
 input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    box-sizing: border-box;
-    background: #fafafa;
-    transition: border 0.2s;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
 }
 
-input:focus, textarea:focus {
-    border-color: #007bff;
-    outline: none;
-    background: #fff;
+textarea {
+  resize: none;
+  min-height: 80px;
 }
 
-/* Tombol submit */
-input[type=submit] {
-    background: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: 0.3s;
-    font-weight: bold;
-    padding: 12px;
-    border-radius: 6px;
+.button-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
 }
 
-input[type=submit]:hover {
-    background: #0056b3;
+.btn {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
 }
 
-/* ========== TABLE STYLING ========== */
+.btn.primary {
+  background: #0284C7;
+  color: #fff;
+  border: none;
+}
+
+.btn.secondary {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  color: #0284C7;
+}
+
+/* INFO BOX */
+.info-card h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.info-card ol {
+  margin: 0 0 16px 20px;
+  padding: 0;
+  color: #374151;
+}
+
+.note {
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 16px;
+}
+
 table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-    font-size: 14px;
-    vertical-align: top;
+  padding: 10px 12px;
+  border-top: 1px solid #E5E7EB;
+  text-align: left;
 }
 
 th {
-    background: #007bff;
-    color: white;
-    text-transform: uppercase;
-    font-size: 13px;
-    letter-spacing: 0.5px;
+  font-weight: 600;
+  background: #F9FAFB;
+}
+.btn.primary:hover,
+.btn.secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(6, 182, 212, 0.25);
 }
 
-tr:nth-child(even) {
-    background: #f9f9f9;
+/* ====== Font & Body ====== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+  color: #111827;
+  font-size: 15px;
+  line-height: 1.6;
 }
 
-/* ========== RESPONSIVE TABLE ========== */
-@media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-    .form-full {
-        grid-column: span 1;
-    }
-
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-
-    th {
-        display: none;
-    }
-
-    tr {
-        margin-bottom: 15px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        padding: 10px;
-        background: #fff;
-    }
-
-    td {
-        border: none;
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 5px;
-    }
-
-    td:before {
-        content: attr(data-label);
-        font-weight: bold;
-        color: #555;
-    }
+/* ====== Layout ====== */
+.form-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
 }
+
+/* ====== Card Box ====== */
+.card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  padding: 24px;
+}
+
+h2 {
+   margin: 0 0 10px;
+  font-size: 17px;
+  color: #333;
+}
+
+.card p,
+.card li {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* ====== Form Grid ====== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-grid input,
+.form-grid textarea {
+  padding: 6px 10px;
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  height: 36px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+label {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 3px;
+  color: #444;
+}
+
+.form-grid textarea {
+  min-height: 65px;
+  resize: vertical;
+}
+
+.form-grid input:focus,
+.form-grid textarea:focus {
+  border-color: #059bb6; /* biru tosca gelap */
+  box-shadow: 0 0 0 2px rgba(5, 155, 182, 0.15);
+}
+
+.form-full {
+  grid-column: span 2;
+}
+
+/* ====== Button Style ====== */
+.btn {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn.primary,
+.btn.secondary {
+  background: #fff;
+  border: 1px solid #D1D5DB; 
+  color: #059bb6;           
+  box-shadow: 0 2px 4px rgba(5, 155, 182, 0.15);
+}
+
+.btn.primary:hover,
+.btn.secondary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(5, 155, 182, 0.25);
+}
+
+/* ====== Link ====== */
+a {
+  color: #059bb6;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ====== Table ====== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th,
+td {
+  padding: 10px 12px;
+  border: 1px solid #E5E7EB;
+  text-align: left;
+}
+
+th {
+  font-weight: 600;
+  background: #F3F4F6;
+  color: #111827;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+  padding: 4px 10px;              
+  border: 1px solid #D1D5DB;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  height: 32px;                  
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-grid textarea {
+  min-height: 50px;               
+  resize: vertical;
+  height: auto;
+}
+textarea[name="profil_jaringan"]::placeholder {
+  font-family: monospace;
+  font-size: 13px;
+  color: #9CA3AF; 
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #059bb6;
+  box-shadow: 0 0 3px rgba(5, 155, 182, 0.3);
+}
+
