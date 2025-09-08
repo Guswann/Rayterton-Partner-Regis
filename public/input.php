@@ -208,7 +208,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-row">
                         <div class="form-group institution-only">
                             <label>Institution Code</label>
-                            <input type="text" name="kode_institusi_partner" placeholder="e.g. INST-2024-001" required>
+                            <input type="text" name="kode_institusi_partner" placeholder="...." required>
                         </div>
                         <div class="form-group institution-only">
                             <label>Institution Name</label>
@@ -228,7 +228,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-row">
                         <div class="form-group individual-only">
                             <label>Promo Code</label>
-                            <input type="text" name="promo_code" placeholder="e.g. PROMO-JOHN2024" required>
+                            <input type="text" name="promo_code" placeholder="...." required>
                         </div>
                         <div class="form-group individual-only">
                             <label>Full Name</label>
