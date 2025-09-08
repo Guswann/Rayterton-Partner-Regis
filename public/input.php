@@ -7,10 +7,25 @@ if (isset($_POST['submit'])) {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     if ($jenis_partner == "institution") {
-        // Insert ke tabel institusi_partner
+        $kode = $_POST['kode_institusi_partner'];
+
+        // Cek duplikat
+        $check = $conn->prepare("SELECT COUNT(*) FROM institusi_partner WHERE kode_institusi_partner = ?");
+        $check->bind_param("s", $kode);
+        $check->execute();
+        $check->bind_result($count);
+        $check->fetch();
+        $check->close();
+
+        if ($count > 0) {
+            echo "<script>alert('Kode institusi sudah dipakai, silakan gunakan kode lain!'); window.history.back();</script>";
+            exit;
+        }
+
+        // Baru insert
         $stmt = $conn->prepare("INSERT INTO institusi_partner 
-            (kode_institusi_partner, nama_institusi, nama_partner, whatsapp, email, password, profil_jaringan, segment_industri_fokus, promo_suggestion, referral_awal, active_status, discount_pct) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+        (kode_institusi_partner, nama_institusi, nama_partner, whatsapp, email, password, profil_jaringan, segment_industri_fokus, promo_suggestion, referral_awal, active_status, discount_pct) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 
         $active_status = 1;
         $discount_pct = 0;
@@ -118,15 +133,18 @@ if (isset($_POST['submit'])) {
         }
 
         .form-row {
-        display: flex;
-        gap: 20px; /* Jarak antar kolom: 20px (bisa diatur) */
-        margin-bottom: 15px;
-        flex-wrap: wrap; /* Agar responsive di mobile */
+            display: flex;
+            gap: 20px;
+            /* Jarak antar kolom: 20px (bisa diatur) */
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            /* Agar responsive di mobile */
         }
 
         .form-group {
             flex: 1;
-            min-width: 200px; /* Minimal lebar agar tidak terlalu kecil di mobile */
+            min-width: 200px;
+            /* Minimal lebar agar tidak terlalu kecil di mobile */
         }
 
         label {
@@ -202,7 +220,7 @@ if (isset($_POST['submit'])) {
                             <option value="institution">Institution</option>
                         </select>
                     </div>
-                    
+
 
                     <!-- Row: Institution Code & Name (side by side) -->
                     <div class="form-row">
