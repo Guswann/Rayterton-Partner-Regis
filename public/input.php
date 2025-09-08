@@ -281,7 +281,7 @@ if (isset($_POST['submit'])) {
             </div>
 
             <!-- INFO BOX -->
-            <div class="card info-card">
+            <div class="card2 info-card">
                 <h2>What Happens After Registration?</h2>
                 <ol>
                     <li>Data verification and training alignment.</li>
