@@ -86,46 +86,6 @@ if (isset($_POST['submit'])) {
     <title>Partner Registration</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script>
-        function toggleFields() {
-            const partnerType = document.querySelector('select[name="jenis_partner"]').value;
-            const institutionFields = document.querySelectorAll('.institution-only');
-            const individualFields = document.querySelectorAll('.individual-only');
-
-            if (partnerType === 'individual') {
-                institutionFields.forEach(field => {
-                    field.style.display = 'none';
-                    // Kosongkan dan nonaktifkan field agar tidak dikirim
-                    if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
-                        field.value = '';
-                    }
-                });
-                individualFields.forEach(field => {
-                    field.style.display = 'block';
-                });
-            } else if (partnerType === 'institution') {
-                individualFields.forEach(field => {
-                    field.style.display = 'none';
-                    if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
-                        field.value = '';
-                    }
-                });
-                institutionFields.forEach(field => {
-                    field.style.display = 'block';
-                });
-            } else {
-                // Jika belum memilih
-                individualFields.forEach(field => field.style.display = 'none');
-                institutionFields.forEach(field => field.style.display = 'none');
-            }
-        }
-
-        // Jalankan saat halaman dimuat dan saat ganti tipe
-        document.addEventListener('DOMContentLoaded', function() {
-            toggleFields(); // Sembunyikan semua saat load
-            document.querySelector('select[name="jenis_partner"]').addEventListener('change', toggleFields);
-        });
-    </script>
     <style>
         .individual-only,
         .institution-only {
@@ -312,6 +272,46 @@ if (isset($_POST['submit'])) {
 </body>
 
 <script>
+
+            function toggleFields() {
+            const partnerType = document.querySelector('select[name="jenis_partner"]').value;
+            const institutionFields = document.querySelectorAll('.institution-only');
+            const individualFields = document.querySelectorAll('.individual-only');
+
+            if (partnerType === 'individual') {
+                institutionFields.forEach(field => {
+                    field.style.display = 'none';
+                    // Kosongkan dan nonaktifkan field agar tidak dikirim
+                    if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
+                        field.value = '';
+                    }
+                });
+                individualFields.forEach(field => {
+                    field.style.display = 'block';
+                });
+            } else if (partnerType === 'institution') {
+                individualFields.forEach(field => {
+                    field.style.display = 'none';
+                    if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
+                        field.value = '';
+                    }
+                });
+                institutionFields.forEach(field => {
+                    field.style.display = 'block';
+                });
+            } else {
+                // Jika belum memilih
+                individualFields.forEach(field => field.style.display = 'none');
+                institutionFields.forEach(field => field.style.display = 'none');
+            }
+        }
+
+        // Jalankan saat halaman dimuat dan saat ganti tipe
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleFields(); // Sembunyikan semua saat load
+            document.querySelector('select[name="jenis_partner"]').addEventListener('change', toggleFields);
+        });
+
     function toggleFields() {
         const partnerType = document.querySelector('select[name="jenis_partner"]').value;
         const institutionFields = document.querySelectorAll('.institution-only input, .institution-only textarea');
