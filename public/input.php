@@ -3,24 +3,57 @@ require '../backend/dbconnection.php';
 
 // Proses insert
 if (isset($_POST['submit'])) {
-    $stmt = $conn->prepare("INSERT INTO rtn_ac_institusi_partner 
-        (kode_institusi_partner, nama_institusi, nama_partner, email, password, referral_awal, profil_jaringan, segment_industri_fokus, promo_suggestion, ACTIVE_STATUS, discount_pct) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+    $jenis_partner = $_POST['jenis_partner'];
 
-    $stmt->bind_param(
-        "ssssssssssi",
-        $_POST['kode_institusi_partner'],
-        $_POST['nama_institusi'],
-        $_POST['nama_partner'],
-        $_POST['email'],
-        $_POST['password'],
-        $_POST['referral_awal'],
-        $_POST['profil_jaringan'],
-        $_POST['segment_industri_fokus'],
-        $_POST['promo_suggestion'],
-        $_POST['ACTIVE_STATUS'],
-        $_POST['discount_pct']
-    );
+    // Hash password biar aman
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+    if ($jenis_partner == "institution") {
+        // Insert ke tabel institusi
+        $stmt = $conn->prepare("INSERT INTO rtn_ac_institusi_partner 
+            (kode_institusi_partner, nama_institusi, nama_partner, email, password, referral_awal, profil_jaringan, segment_industri_fokus, promo_suggestion, ACTIVE_STATUS, discount_pct) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+
+        $active_status = "1";
+        $discount_pct = 0;
+
+        $stmt->bind_param(
+            "ssssssssssi",
+            $_POST['kode_institusi_partner'],
+            $_POST['nama_institusi'],
+            $_POST['nama_partner'],
+            $_POST['email'],
+            $password,
+            $_POST['referral_awal'],
+            $_POST['profil_jaringan'],
+            $_POST['segment_industri_fokus'],
+            $_POST['promo_suggestion'],
+            $active_status,
+            $discount_pct
+        );
+    } else {
+        // Insert ke tabel individual
+        $stmt = $conn->prepare("INSERT INTO rtn_ac_promocodes
+            (promo_code, nama_lengkap, email, password, referral_awal, profil_jaringan, segment_industri_fokus, promo_suggestion, ACTIVE_YN, discount_pct) 
+            VALUES (?,?,?,?,?,?,?,?,?,?)");
+
+        $active_yn = "1";
+        $discount_pct = 0;
+
+        $stmt->bind_param(
+            "sssssssssi",
+            $_POST['promo_code'],
+            $_POST['nama_lengkap'],
+            $_POST['email'],
+            $password,
+            $_POST['referral_awal'],
+            $_POST['profil_jaringan'],
+            $_POST['segment_industri_fokus'],
+            $_POST['promo_suggestion'],
+            $active_yn,
+            $discount_pct
+        );
+    }
 
     if ($stmt->execute()) {
         echo "<script>alert('Data berhasil ditambahkan!'); window.location='index.php';</script>";
@@ -39,7 +72,6 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- MAIN CONTENT -->
     <div class="container">
         <h1 class="title">Daftar Partner</h1>
         <p class="subtitle">
@@ -50,14 +82,26 @@ if (isset($_POST['submit'])) {
             <!-- FORM -->
             <div class="card form-card">
                 <form method="post">
+                    <div class="form-group">
+                        <label>Jenis Partner</label>
+                        <select name="jenis_partner" required>
+                            <option value="">-- Pilih Jenis Partner --</option>
+                            <option value="individual">Individual</option>
+                            <option value="institution">Institution</option>
+                        </select>
+                    </div>
+
+                    <!-- Institution Fields -->
                     <div class="form-row">
                         <div class="form-group">
-                            <label>Jenis Partner</label>
-                            <input type="text" name="kode_institusi_partner" >
+                            <label>Kode Institusi / Promo Code</label>
+                            <input type="text" name="kode_institusi_partner" placeholder="Untuk Institution">
+                            <input type="text" name="promo_code" placeholder="Untuk Individual">
                         </div>
                         <div class="form-group">
-                            <label>Nama Lengkap / Institusi</label>
-                            <input type="text" name="nama_institusi">
+                            <label>Nama Institusi / Nama Lengkap</label>
+                            <input type="text" name="nama_institusi" placeholder="Nama Institusi">
+                            <input type="text" name="nama_lengkap" placeholder="Nama Lengkap">
                         </div>
                     </div>
 
@@ -67,9 +111,14 @@ if (isset($_POST['submit'])) {
                             <input type="email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Whatsapp (Mandatory)</label>
-                            <input type="text" name="nama_partner" placeholder="+62xxxxxxxxxxx">
+                            <label>Whatsapp</label>
+                            <input type="text" name="nama_partner" placeholder="+62xxxxxxxxxxx (untuk institusi)">
                         </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" required>
                     </div>
 
                     <div class="form-group">
@@ -78,30 +127,19 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div class="form-group">
-                        <label>Segment/Industri Fokus (opsional)</label>
-                        <input type="text" name="segment_industri_fokus" placeholder="mis. Pemerintah, Keuangan, Distribusi, Kesehatan, dsb.">
+                        <label>Segment/Industri Fokus</label>
+                        <input type="text" name="segment_industri_fokus" placeholder="Pemerintah, Keuangan, Distribusi, dsb.">
                     </div>
 
                     <div class="form-group">
                         <label>Promo Suggestion (code referral)</label>
-                        <input type="text" name="promo_suggestion" placeholder="">
+                        <input type="text" name="promo_suggestion">
                     </div>
 
                     <div class="form-group">
-                        <label>Referral Awal (opsional)</label>
-                        <input type="text" name="referral_awal" placeholder="Nama/Perusahaan (jika sudah ada)">
+                        <label>Referral Awal</label>
+                        <input type="text" name="referral_awal" placeholder="Nama/Perusahaan (opsional)">
                     </div>
-
-                    <!-- <div class="form-row">
-                        <div class="form-group">
-                            <label>Status Aktif (1/0)</label>
-                            <input type="text" name="ACTIVE_STATUS" placeholder="1 / 0">
-                        </div>
-                        <div class="form-group">
-                            <label>Discount (%)</label>
-                            <input type="number" name="discount_pct" placeholder="0">
-                        </div>
-                    </div> -->
 
                     <div class="button-group">
                         <button type="submit" name="submit" class="btn primary">Kirim Pendaftaran</button>
@@ -118,31 +156,6 @@ if (isset($_POST['submit'])) {
                     <li>Kick-off call: pemaparan produk & proses referral.</li>
                     <li>Pemberian kode/link referral unik, materi promosi, dan kontak PIC.</li>
                 </ol>
-                <p class="note">
-                    Kami juga menyediakan sesi enablement (produk & proses) bagi tim Anda.
-                </p>
-
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Aspek</th>
-                        <th>Individual</th>
-                        <th>Institution</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Skema Komisi</td>
-                        <td>Persentase per deal</td>
-                        <td>Persentase & opsi tier</td>
-                    </tr>
-                    <tr>
-                        <td>Dukungan</td>
-                        <td>Materi & presales</td>
-                        <td>Joint marketing & enablement</td>
-                    </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

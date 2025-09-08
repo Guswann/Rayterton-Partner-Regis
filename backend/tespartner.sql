@@ -39,7 +39,7 @@ CREATE TABLE `rtn_ac_institusi_partner` (
   `promo_suggestion` varchar(4) DEFAULT NULL,
   `ACTIVE_STATUS` varchar(1) DEFAULT NULL,
   `discount_pct` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rtn_ac_institusi_partner`
@@ -65,7 +65,7 @@ CREATE TABLE `rtn_ac_promocodes` (
   `profil_jaringan` text,
   `segment_industri_fokus` text,
   `promo_suggestion` varchar(4) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables

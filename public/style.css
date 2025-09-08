@@ -303,3 +303,104 @@ textarea:focus {
   box-shadow: 0 0 3px rgba(5, 155, 182, 0.3);
 }
 
+/* ====== Partner List Section ====== */
+.partner-list {
+  margin-top: 40px;
+}
+
+.partner-list h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #059bb6;
+}
+
+/* Table Wrapper */
+.table-card {
+  background: #fff;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* Table */
+.partner-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.partner-table thead {
+  background: #F3F4F6;
+}
+
+.partner-table th,
+.partner-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #E5E7EB;
+  text-align: left;
+}
+
+.partner-table th {
+  font-weight: 600;
+  color: #111827;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.partner-table tr:hover {
+  background: #F9FAFB;
+  transition: background 0.2s ease;
+}
+
+/* Status Badge */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge.active {
+  background: #DCFCE7;
+  color: #166534;
+}
+
+.badge.inactive {
+  background: #FEE2E2;
+  color: #991B1B;
+}
+
+/* Action Buttons */
+.table-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.table-actions .btn {
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.table-actions .btn.view {
+  background: #E0F2FE;
+  color: #0369A1;
+  border: 1px solid #BAE6FD;
+}
+
+.table-actions .btn.delete {
+  background: #FEE2E2;
+  color: #B91C1C;
+  border: 1px solid #FECACA;
+}
+
+.table-actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+}
