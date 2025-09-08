@@ -226,7 +226,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-row">
                         <div class="form-group institution-only">
                             <label>Institution Code</label>
-                            <input type="text" name="kode_institusi_partner" placeholder="...." required maxlength="3">
+                            <input type="text" name="kode_institusi_partner" placeholder="max: 3 chars" required maxlength="3">
                         </div>
                         <div class="form-group institution-only">
                             <label>Institution Name</label>
@@ -246,7 +246,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-row">
                         <div class="form-group individual-only">
                             <label>Promo Code</label>
-                            <input type="text" name="promo_code" placeholder="...." required maxlength="3">
+                            <input type="text" name="promo_code" placeholder="max: 3 chars" required maxlength="3"  >
                         </div>
                         <div class="form-group individual-only">
                             <label>Full Name</label>
