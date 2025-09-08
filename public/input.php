@@ -65,6 +65,7 @@ if (isset($_POST['submit'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Partner Registration</title>
@@ -105,39 +106,48 @@ if (isset($_POST['submit'])) {
         }
 
         // Jalankan saat halaman dimuat dan saat ganti tipe
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             toggleFields(); // Sembunyikan semua saat load
             document.querySelector('select[name="jenis_partner"]').addEventListener('change', toggleFields);
         });
     </script>
     <style>
-        .individual-only, .institution-only {
+        .individual-only,
+        .institution-only {
             display: none;
         }
+
         .form-row {
             display: flex;
             gap: 15px;
             margin-bottom: 15px;
         }
+
         .form-group {
             flex: 1;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
         }
-        input, textarea, select {
+
+        input,
+        textarea,
+        select {
             width: 100%;
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 6px;
             font-family: 'Inter', sans-serif;
         }
+
         .button-group {
             margin-top: 20px;
             text-align: right;
         }
+
         .btn {
             padding: 10px 16px;
             border: none;
@@ -145,16 +155,19 @@ if (isset($_POST['submit'])) {
             cursor: pointer;
             font-weight: 500;
         }
+
         .btn.primary {
             background-color: #0056b3;
             color: white;
         }
+
         .btn.secondary {
             background-color: #6c757d;
             color: white;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 class="title">Partner Registration</h1>
@@ -258,4 +271,49 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </body>
+
+<script>
+    function toggleFields() {
+        const partnerType = document.querySelector('select[name="jenis_partner"]').value;
+        const institutionFields = document.querySelectorAll('.institution-only input, .institution-only textarea');
+        const individualFields = document.querySelectorAll('.individual-only input, .individual-only textarea');
+
+        if (partnerType === 'individual') {
+            // Hide institution fields
+            institutionFields.forEach(field => {
+                field.parentElement.style.display = 'none';
+                field.required = false;
+                field.value = '';
+            });
+            // Show individual fields
+            individualFields.forEach(field => {
+                field.parentElement.style.display = 'block';
+                field.required = true;
+            });
+        } else if (partnerType === 'institution') {
+            // Hide individual fields
+            individualFields.forEach(field => {
+                field.parentElement.style.display = 'none';
+                field.required = false;
+                field.value = '';
+            });
+            // Show institution fields
+            institutionFields.forEach(field => {
+                field.parentElement.style.display = 'block';
+                field.required = true;
+            });
+        } else {
+            // Jika belum pilih
+            institutionFields.forEach(field => {
+                field.parentElement.style.display = 'none';
+                field.required = false;
+            });
+            individualFields.forEach(field => {
+                field.parentElement.style.display = 'none';
+                field.required = false;
+            });
+        }
+    }
+</script>
+
 </html>

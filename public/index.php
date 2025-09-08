@@ -10,7 +10,7 @@ $partners = [];
 // Query institusi
 if ($filter === 'institution' || $filter === 'all') {
     $result = $conn->query("SELECT kode_institusi_partner AS kode, nama_institusi AS nama, whatsapp, email, 'Institution' AS jenis 
-                            FROM rtn_ac_institusi_partner");
+                            FROM institusi_partner");
     while ($row = $result->fetch_assoc()) {
         $partners[] = $row;
     }
@@ -19,7 +19,7 @@ if ($filter === 'institution' || $filter === 'all') {
 // Query individual
 if ($filter === 'individual' || $filter === 'all') {
     $result = $conn->query("SELECT promo_code AS kode, nama_lengkap AS nama, whatsapp, email, 'Individual' AS jenis 
-                            FROM rtn_ac_promocodes");
+                            FROM individual_promocodes");
     while ($row = $result->fetch_assoc()) {
         $partners[] = $row;
     }
