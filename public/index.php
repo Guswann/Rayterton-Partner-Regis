@@ -36,42 +36,42 @@ if (isset($individualResult) && $individualResult) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>List Partner</title>
+    <title>Partner List</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1 class="title">List Partner Terdaftar</h1>
-        <p class="subtitle">Berikut daftar partner yang sudah mendaftar pada sistem.</p>
+        <h1 class="title">Registered Partner List</h1>
+        <p class="subtitle">Below is the list of partners who have registered in the system.</p>
 
-        <!-- Tombol ke input.php -->
+        <!-- Button to input.php -->
         <div class="button-group" style="margin-bottom:20px;">
-            <a href="input.php" class="btn primary">+ Tambah Partner</a>
+            <a href="input.php" class="btn primary">+ Add Partner</a>
         </div>
 
         <!-- Filter Dropdown -->
         <form method="get" style="margin-bottom:20px;">
-            <label for="filter"><b>Filter Jenis Partner:</b></label>
+            <label for="filter"><b>Filter by Partner Type:</b></label>
             <select name="filter" id="filter" onchange="this.form.submit()">
-                <option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>Semua</option>
+                <option value="all" <?= $filter === 'all' ? 'selected' : '' ?>>All</option>
                 <option value="individual" <?= $filter === 'individual' ? 'selected' : '' ?>>Individual</option>
                 <option value="institution" <?= $filter === 'institution' ? 'selected' : '' ?>>Institution</option>
             </select>
         </form>
 
-        <!-- Tabel List -->
+        <!-- Partner List Table -->
         <div class="card info-card partner-list">
             <table class="partner-table">
                 <thead>
                     <tr>
-                        <th>Kode</th>
-                        <th>Nama</th>
+                        <th>Code</th>
+                        <th>Name</th>
                         <th>Email</th>
-                        <th>Jenis</th>
+                        <th>Type</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -83,14 +83,14 @@ if (isset($individualResult) && $individualResult) {
                                 <td><?= htmlspecialchars($p['email']) ?></td>
                                 <td>
                                     <span class="badge <?= strtolower($p['jenis']) ?>">
-                                        <?= htmlspecialchars($p['jenis']) ?>
+                                        <?= htmlspecialchars($p['jenis'] === 'individual' ? 'Individual' : 'Institution') ?>
                                     </span>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="4" style="text-align:center;">Belum ada data partner</td>
+                            <td colspan="4" style="text-align:center;">No partner data available</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

@@ -64,18 +64,102 @@ if (isset($_POST['submit'])) {
 }
 ?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Daftar Partner</title>
+    <title>Partner Registration</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script>
+        function toggleFields() {
+            const partnerType = document.querySelector('select[name="jenis_partner"]').value;
+            const institutionFields = document.querySelectorAll('.institution-only');
+            const individualFields = document.querySelectorAll('.individual-only');
+
+            if (partnerType === 'individual') {
+                institutionFields.forEach(field => {
+                    field.style.display = 'none';
+                    // Kosongkan dan nonaktifkan field agar tidak dikirim
+                    if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
+                        field.value = '';
+                    }
+                });
+                individualFields.forEach(field => {
+                    field.style.display = 'block';
+                });
+            } else if (partnerType === 'institution') {
+                individualFields.forEach(field => {
+                    field.style.display = 'none';
+                    if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
+                        field.value = '';
+                    }
+                });
+                institutionFields.forEach(field => {
+                    field.style.display = 'block';
+                });
+            } else {
+                // Jika belum memilih
+                individualFields.forEach(field => field.style.display = 'none');
+                institutionFields.forEach(field => field.style.display = 'none');
+            }
+        }
+
+        // Jalankan saat halaman dimuat dan saat ganti tipe
+        document.addEventListener('DOMContentLoaded', function () {
+            toggleFields(); // Sembunyikan semua saat load
+            document.querySelector('select[name="jenis_partner"]').addEventListener('change', toggleFields);
+        });
+    </script>
+    <style>
+        .individual-only, .institution-only {
+            display: none;
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            flex: 1;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+        }
+        .button-group {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .btn.primary {
+            background-color: #0056b3;
+            color: white;
+        }
+        .btn.secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="title">Daftar Partner</h1>
+        <h1 class="title">Partner Registration</h1>
         <p class="subtitle">
-            Lengkapi formulir singkat berikut. Kami akan menghubungi Anda untuk langkah berikutnya.
+            Complete the short form below. We will contact you for the next steps.
         </p>
 
         <div class="grid">
@@ -83,36 +167,50 @@ if (isset($_POST['submit'])) {
             <div class="card form-card">
                 <form method="post">
                     <div class="form-group">
-                        <label>Jenis Partner</label>
+                        <label>Partner Type</label>
                         <select name="jenis_partner" required>
-                            <option value="">-- Pilih Jenis Partner --</option>
+                            <option value="">-- Select Partner Type --</option>
                             <option value="individual">Individual</option>
                             <option value="institution">Institution</option>
                         </select>
                     </div>
 
-                    <!-- Institution Fields -->
+                    <!-- Row: Code & Name -->
                     <div class="form-row">
-                        <div class="form-group">
-                            <label>Kode Institusi / Promo Code</label>
-                            <input type="text" name="kode_institusi_partner" placeholder="Untuk Institution">
-                            <input type="text" name="promo_code" placeholder="Untuk Individual">
+                        <!-- For Institution -->
+                        <div class="form-group institution-only">
+                            <label>Institution Code</label>
+                            <input type="text" name="kode_institusi_partner" placeholder="e.g. INST-2024-001" required>
                         </div>
-                        <div class="form-group">
-                            <label>Nama Institusi / Nama Lengkap</label>
-                            <input type="text" name="nama_institusi" placeholder="Nama Institusi">
-                            <input type="text" name="nama_lengkap" placeholder="Nama Lengkap">
+
+                        <!-- For Individual -->
+                        <div class="form-group individual-only">
+                            <label>Promo Code</label>
+                            <input type="text" name="promo_code" placeholder="e.g. PROMO-JOHN2024" required>
+                        </div>
+
+                        <!-- For Institution -->
+                        <div class="form-group institution-only">
+                            <label>Institution Name</label>
+                            <input type="text" name="nama_institusi" placeholder="Company or Institution Name" required>
+                        </div>
+
+                        <!-- For Individual -->
+                        <div class="form-group individual-only">
+                            <label>Full Name</label>
+                            <input type="text" name="nama_lengkap" placeholder="Your Full Name" required>
                         </div>
                     </div>
 
+                    <!-- Contact Info (Common) -->
                     <div class="form-row">
                         <div class="form-group">
                             <label>Email (Mandatory)</label>
                             <input type="email" name="email" required>
                         </div>
                         <div class="form-group">
-                            <label>Whatsapp</label>
-                            <input type="text" name="nama_partner" placeholder="+62xxxxxxxxxxx (untuk institusi)">
+                            <label>WhatsApp Number</label>
+                            <input type="text" name="whatsapp" placeholder="+62 812-3456-7890" required>
                         </div>
                     </div>
 
@@ -122,39 +220,39 @@ if (isset($_POST['submit'])) {
                     </div>
 
                     <div class="form-group">
-                        <label>Profil & Jaringan</label>
-                        <textarea name="profil_jaringan" placeholder="Ceritakan singkat profil & jaringan Anda"></textarea>
+                        <label>Profile & Network</label>
+                        <textarea name="profil_jaringan" placeholder="Briefly describe your profile and network" required></textarea>
                     </div>
 
                     <div class="form-group">
-                        <label>Segment/Industri Fokus</label>
-                        <input type="text" name="segment_industri_fokus" placeholder="Pemerintah, Keuangan, Distribusi, dsb.">
+                        <label>Industry Focus / Segment</label>
+                        <input type="text" name="segment_industri_fokus" placeholder="e.g. Government, Finance, Education">
                     </div>
 
                     <div class="form-group">
-                        <label>Promo Suggestion (code referral)</label>
-                        <input type="text" name="promo_suggestion">
+                        <label>Promo Suggestion (Referral Code)</label>
+                        <input type="text" name="promo_suggestion" placeholder="Suggested referral code">
                     </div>
 
                     <div class="form-group">
-                        <label>Referral Awal</label>
-                        <input type="text" name="referral_awal" placeholder="Nama/Perusahaan (opsional)">
+                        <label>Referred By (Optional)</label>
+                        <input type="text" name="referral_awal" placeholder="Partner name or company (if any)">
                     </div>
 
                     <div class="button-group">
-                        <button type="submit" name="submit" class="btn primary">Kirim Pendaftaran</button>
-                        <button type="button" class="btn secondary">WhatsApp Kami</button>
+                        <button type="submit" name="submit" class="btn primary">Submit Registration</button>
+                        <!-- <button type="button" class="btn secondary">Contact Us on WhatsApp</button> -->
                     </div>
                 </form>
             </div>
 
             <!-- INFO BOX -->
             <div class="card info-card">
-                <h2>Apa yang Terjadi Setelah Mendaftar?</h2>
+                <h2>What Happens After Registration?</h2>
                 <ol>
-                    <li>Verifikasi data & kesesuaian training.</li>
-                    <li>Kick-off call: pemaparan produk & proses referral.</li>
-                    <li>Pemberian kode/link referral unik, materi promosi, dan kontak PIC.</li>
+                    <li>Data verification and training alignment.</li>
+                    <li>Kick-off call: product overview and referral process.</li>
+                    <li>Issuance of unique referral link/code, promotional materials, and PIC contact.</li>
                 </ol>
             </div>
         </div>
