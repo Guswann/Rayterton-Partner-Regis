@@ -4,33 +4,23 @@ require '../backend/dbconnection.php';
 // Ambil filter dari URL
 $filter = isset($_GET['filter']) ? $_GET['filter'] : 'all';
 
-// Query institusi
-$institusiQuery = "SELECT kode_institusi_partner AS kode, nama_institusi AS nama, email, 'Institution' AS jenis 
-                   FROM rtn_ac_institusi_partner";
-if ($filter === 'institution') {
-    $institusiResult = $conn->query($institusiQuery);
-} elseif ($filter === 'all') {
-    $institusiResult = $conn->query($institusiQuery);
-}
-
-// Query individual
-$individualQuery = "SELECT promo_code AS kode, nama_lengkap AS nama, email, 'Individual' AS jenis 
-                    FROM rtn_ac_promocodes";
-if ($filter === 'individual') {
-    $individualResult = $conn->query($individualQuery);
-} elseif ($filter === 'all') {
-    $individualResult = $conn->query($individualQuery);
-}
-
 // Gabungkan hasil
 $partners = [];
-if (isset($institusiResult) && $institusiResult) {
-    while ($row = $institusiResult->fetch_assoc()) {
+
+// Query institusi
+if ($filter === 'institution' || $filter === 'all') {
+    $result = $conn->query("SELECT kode_institusi_partner AS kode, nama_institusi AS nama, whatsapp, email, 'Institution' AS jenis 
+                            FROM rtn_ac_institusi_partner");
+    while ($row = $result->fetch_assoc()) {
         $partners[] = $row;
     }
 }
-if (isset($individualResult) && $individualResult) {
-    while ($row = $individualResult->fetch_assoc()) {
+
+// Query individual
+if ($filter === 'individual' || $filter === 'all') {
+    $result = $conn->query("SELECT promo_code AS kode, nama_lengkap AS nama, whatsapp, email, 'Individual' AS jenis 
+                            FROM rtn_ac_promocodes");
+    while ($row = $result->fetch_assoc()) {
         $partners[] = $row;
     }
 }
@@ -40,8 +30,18 @@ if (isset($individualResult) && $individualResult) {
 <head>
     <meta charset="UTF-8">
     <title>Partner List</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .badge.individual { background: #059bb6; }
+        .badge.institution { background: #4f46e5; }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -70,6 +70,7 @@ if (isset($individualResult) && $individualResult) {
                     <tr>
                         <th>Code</th>
                         <th>Name</th>
+                        <th>WhatsApp</th>
                         <th>Email</th>
                         <th>Type</th>
                     </tr>
@@ -80,17 +81,18 @@ if (isset($individualResult) && $individualResult) {
                             <tr>
                                 <td><?= htmlspecialchars($p['kode']) ?></td>
                                 <td><?= htmlspecialchars($p['nama']) ?></td>
+                                <td><?= htmlspecialchars($p['whatsapp']) ?></td>
                                 <td><?= htmlspecialchars($p['email']) ?></td>
                                 <td>
                                     <span class="badge <?= strtolower($p['jenis']) ?>">
-                                        <?= htmlspecialchars($p['jenis'] === 'individual' ? 'Individual' : 'Institution') ?>
+                                        <?= htmlspecialchars($p['jenis']) ?>
                                     </span>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="4" style="text-align:center;">No partner data available</td>
+                            <td colspan="5" style="text-align:center;">No partner data available</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>

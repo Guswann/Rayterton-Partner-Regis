@@ -4,52 +4,52 @@ require '../backend/dbconnection.php';
 // Proses insert
 if (isset($_POST['submit'])) {
     $jenis_partner = $_POST['jenis_partner'];
-
-    // Hash password biar aman
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     if ($jenis_partner == "institution") {
-        // Insert ke tabel institusi
-        $stmt = $conn->prepare("INSERT INTO rtn_ac_institusi_partner 
-            (kode_institusi_partner, nama_institusi, nama_partner, email, password, referral_awal, profil_jaringan, segment_industri_fokus, promo_suggestion, ACTIVE_STATUS, discount_pct) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+        // Insert ke tabel institusi_partner
+        $stmt = $conn->prepare("INSERT INTO institusi_partner 
+            (kode_institusi_partner, nama_institusi, nama_partner, whatsapp, email, password, profil_jaringan, segment_industri_fokus, promo_suggestion, referral_awal, active_status, discount_pct) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 
-        $active_status = "1";
+        $active_status = 1;
         $discount_pct = 0;
 
         $stmt->bind_param(
-            "ssssssssssi",
+            "ssssssssssii",
             $_POST['kode_institusi_partner'],
             $_POST['nama_institusi'],
             $_POST['nama_partner'],
+            $_POST['whatsapp'],
             $_POST['email'],
             $password,
-            $_POST['referral_awal'],
             $_POST['profil_jaringan'],
             $_POST['segment_industri_fokus'],
             $_POST['promo_suggestion'],
+            $_POST['referral_awal'],
             $active_status,
             $discount_pct
         );
     } else {
-        // Insert ke tabel individual
-        $stmt = $conn->prepare("INSERT INTO rtn_ac_promocodes
-            (promo_code, nama_lengkap, email, password, referral_awal, profil_jaringan, segment_industri_fokus, promo_suggestion, ACTIVE_YN, discount_pct) 
-            VALUES (?,?,?,?,?,?,?,?,?,?)");
+        // Insert ke tabel individual_promocodes
+        $stmt = $conn->prepare("INSERT INTO individual_promocodes
+            (promo_code, nama_lengkap, whatsapp, email, password, profil_jaringan, segment_industri_fokus, promo_suggestion, referral_awal, active_yn, discount_pct) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 
-        $active_yn = "1";
+        $active_yn = 1;
         $discount_pct = 0;
 
         $stmt->bind_param(
-            "sssssssssi",
+            "ssssssssssi",
             $_POST['promo_code'],
             $_POST['nama_lengkap'],
+            $_POST['whatsapp'],
             $_POST['email'],
             $password,
-            $_POST['referral_awal'],
             $_POST['profil_jaringan'],
             $_POST['segment_industri_fokus'],
             $_POST['promo_suggestion'],
+            $_POST['referral_awal'],
             $active_yn,
             $discount_pct
         );
