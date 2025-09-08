@@ -118,28 +118,43 @@ if (isset($_POST['submit'])) {
         }
 
         .form-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
+    display: flex;
+    gap: 20px; /* Jarak antar kolom: 20px (bisa diatur) */
+    margin-bottom: 15px;
+    flex-wrap: wrap; /* Agar responsive di mobile */
+}
 
-        .form-group {
-            flex: 1;
-        }
+.form-group {
+    flex: 1;
+    min-width: 200px; /* Minimal lebar agar tidak terlalu kecil di mobile */
+}
 
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #333;
+}
 
-        input,
-        textarea,
-        select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
             font-family: 'Inter', sans-serif;
         }
 
@@ -188,44 +203,37 @@ if (isset($_POST['submit'])) {
                         </select>
                     </div>
 
-                    <!-- Row: Code & Name -->
-                    <div class="form-row">
-                        <!-- For Institution -->
-                        <div class="form-group institution-only">
-                            <label>Institution Code</label>
-                            <input type="text" name="kode_institusi_partner" placeholder="e.g. INST-2024-001" required>
-                        </div>
+<!-- Row: Institution Code & Name (side by side) -->
+<div class="form-row">
+    <div class="form-group institution-only">
+        <label>Institution Code</label>
+        <input type="text" name="kode_institusi_partner" placeholder="e.g. INST-2024-001" required>
+    </div>
+    <div class="form-group institution-only">
+        <label>Institution Name</label>
+        <input type="text" name="nama_institusi" placeholder="Company or Institution Name" required>
+    </div>
+</div>
 
-                        <!-- For Individual -->
-                        <div class="form-group individual-only">
-                            <label>Promo Code</label>
-                            <input type="text" name="promo_code" placeholder="e.g. PROMO-JOHN2024" required>
-                        </div>
+<!-- Row: Partner Name (full width, di bawah) -->
+<div class="form-row">
+    <div class="form-group institution-only">
+        <label>Partner Name (PIC)</label>
+        <input type="text" name="nama_partner" placeholder="Person in charge (PIC)" required>
+    </div>
+</div>
 
-                        <!-- For Institution -->
-                        <div class="form-group institution-only">
-                            <label>Institution Name</label>
-                            <input type="text" name="nama_institusi" placeholder="Company or Institution Name" required>
-                        </div>
-
-                        <!-- For Individual -->
-                        <div class="form-group individual-only">
-                            <label>Full Name</label>
-                            <input type="text" name="nama_lengkap" placeholder="Your Full Name" required>
-                        </div>
-                    </div>
-
-                    <!-- Contact Info (Common) -->
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Email (Mandatory)</label>
-                            <input type="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label>WhatsApp Number</label>
-                            <input type="text" name="whatsapp" placeholder="+62 812-3456-7890" required>
-                        </div>
-                    </div>
+<!-- Contact Info (Email & WhatsApp - berdampingan) -->
+<div class="form-row">
+    <div class="form-group">
+        <label>Email (Mandatory)</label>
+        <input type="email" name="email" required>
+    </div>
+    <div class="form-group">
+        <label>WhatsApp Number</label>
+        <input type="text" name="whatsapp" placeholder="+62 812-3456-7890" required>
+    </div>
+</div>
 
                     <div class="form-group">
                         <label>Password</label>
