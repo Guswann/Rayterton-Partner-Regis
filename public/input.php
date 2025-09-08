@@ -8,17 +8,31 @@ if (isset($_POST['submit'])) {
 
     if ($jenis_partner == "institution") {
         $kode = $_POST['kode_institusi_partner'];
+        $email = $_POST['email'];
 
-        // Cek duplikat
+        // Cek duplikat kode institusi
         $check = $conn->prepare("SELECT COUNT(*) FROM institusi_partner WHERE kode_institusi_partner = ?");
         $check->bind_param("s", $kode);
         $check->execute();
-        $check->bind_result($count);
+        $check->bind_result($countKode);
         $check->fetch();
         $check->close();
 
-        if ($count > 0) {
+        if ($countKode > 0) {
             echo "<script>alert('Kode institusi sudah dipakai, silakan gunakan kode lain!'); window.history.back();</script>";
+            exit;
+        }
+
+        // Cek duplikat email
+        $check = $conn->prepare("SELECT COUNT(*) FROM institusi_partner WHERE email = ?");
+        $check->bind_param("s", $email);
+        $check->execute();
+        $check->bind_result($countEmail);
+        $check->fetch();
+        $check->close();
+
+        if ($countEmail > 0) {
+            echo "<script>alert('Email sudah terdaftar, silakan gunakan email lain!'); window.history.back();</script>";
             exit;
         }
 
@@ -36,7 +50,7 @@ if (isset($_POST['submit'])) {
             $_POST['nama_institusi'],
             $_POST['nama_partner'],
             $_POST['whatsapp'],
-            $_POST['email'],
+            $email,
             $password,
             $_POST['profil_jaringan'],
             $_POST['segment_industri_fokus'],
@@ -71,10 +85,14 @@ if (isset($_POST['submit'])) {
     }
 
     if ($stmt->execute()) {
-        echo "<script>alert('Data berhasil ditambahkan!'); window.location='index.php';</script>";
+        echo "<script>
+        alert('Terima kasih sudah mendaftar, kami akan menghubungi anda dalam beberapa hari ke depan.');
+        window.location='index.php';
+    </script>";
     } else {
         echo "<script>alert('Error: " . $stmt->error . "');</script>";
     }
+
     $stmt->close();
 }
 ?>
@@ -272,45 +290,44 @@ if (isset($_POST['submit'])) {
 </body>
 
 <script>
+    function toggleFields() {
+        const partnerType = document.querySelector('select[name="jenis_partner"]').value;
+        const institutionFields = document.querySelectorAll('.institution-only');
+        const individualFields = document.querySelectorAll('.individual-only');
 
-            function toggleFields() {
-            const partnerType = document.querySelector('select[name="jenis_partner"]').value;
-            const institutionFields = document.querySelectorAll('.institution-only');
-            const individualFields = document.querySelectorAll('.individual-only');
-
-            if (partnerType === 'individual') {
-                institutionFields.forEach(field => {
-                    field.style.display = 'none';
-                    // Kosongkan dan nonaktifkan field agar tidak dikirim
-                    if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
-                        field.value = '';
-                    }
-                });
-                individualFields.forEach(field => {
-                    field.style.display = 'block';
-                });
-            } else if (partnerType === 'institution') {
-                individualFields.forEach(field => {
-                    field.style.display = 'none';
-                    if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
-                        field.value = '';
-                    }
-                });
-                institutionFields.forEach(field => {
-                    field.style.display = 'block';
-                });
-            } else {
-                // Jika belum memilih
-                individualFields.forEach(field => field.style.display = 'none');
-                institutionFields.forEach(field => field.style.display = 'none');
-            }
+        if (partnerType === 'individual') {
+            institutionFields.forEach(field => {
+                field.style.display = 'none';
+                // Kosongkan dan nonaktifkan field agar tidak dikirim
+                if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
+                    field.value = '';
+                }
+            });
+            individualFields.forEach(field => {
+                field.style.display = 'block';
+            });
+        } else if (partnerType === 'institution') {
+            individualFields.forEach(field => {
+                field.style.display = 'none';
+                if (field.tagName === 'INPUT' || field.tagName === 'TEXTAREA') {
+                    field.value = '';
+                }
+            });
+            institutionFields.forEach(field => {
+                field.style.display = 'block';
+            });
+        } else {
+            // Jika belum memilih
+            individualFields.forEach(field => field.style.display = 'none');
+            institutionFields.forEach(field => field.style.display = 'none');
         }
+    }
 
-        // Jalankan saat halaman dimuat dan saat ganti tipe
-        document.addEventListener('DOMContentLoaded', function() {
-            toggleFields(); // Sembunyikan semua saat load
-            document.querySelector('select[name="jenis_partner"]').addEventListener('change', toggleFields);
-        });
+    // Jalankan saat halaman dimuat dan saat ganti tipe
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleFields(); // Sembunyikan semua saat load
+        document.querySelector('select[name="jenis_partner"]').addEventListener('change', toggleFields);
+    });
 
     function toggleFields() {
         const partnerType = document.querySelector('select[name="jenis_partner"]').value;
