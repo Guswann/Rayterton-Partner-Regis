@@ -25,7 +25,7 @@
 .card {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 24px;
 }
 
@@ -47,7 +47,9 @@ label {
   margin-bottom: 6px;
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   border: 1px solid #E5E7EB;
   border-radius: 8px;
   padding: 10px 12px;
@@ -111,7 +113,8 @@ table {
   font-size: 14px;
 }
 
-th, td {
+th,
+td {
   padding: 10px 12px;
   border-top: 1px solid #E5E7EB;
   text-align: left;
@@ -121,6 +124,7 @@ th {
   font-weight: 600;
   background: #F9FAFB;
 }
+
 .btn.primary:hover,
 .btn.secondary:hover {
   transform: translateY(-3px);
@@ -170,7 +174,7 @@ body {
 }
 
 h2 {
-   margin: 0 0 10px;
+  margin: 0 0 10px;
   font-size: 17px;
   color: #333;
 }
@@ -199,6 +203,7 @@ h2 {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
+
 label {
   display: block;
   font-size: 13px;
@@ -213,7 +218,8 @@ label {
 
 .form-grid input:focus,
 .form-grid textarea:focus {
-  border-color: #059bb6; /* biru tosca gelap */
+  border-color: #059bb6;
+  /* biru tosca gelap */
   box-shadow: 0 0 0 2px rgba(5, 155, 182, 0.15);
 }
 
@@ -236,8 +242,8 @@ label {
 .btn.primary,
 .btn.secondary {
   background: #fff;
-  border: 1px solid #D1D5DB; 
-  color: #059bb6;           
+  border: 1px solid #D1D5DB;
+  color: #059bb6;
   box-shadow: 0 2px 4px rgba(5, 155, 182, 0.15);
 }
 
@@ -284,25 +290,26 @@ th {
 .form-grid input,
 .form-grid select,
 .form-grid textarea {
-  padding: 4px 10px;              
+  padding: 4px 10px;
   border: 1px solid #D1D5DB;
   border-radius: 8px;
   font-size: 14px;
   outline: none;
-  height: 32px;                  
+  height: 32px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .form-grid textarea {
-  min-height: 50px;               
+  min-height: 50px;
   resize: vertical;
   height: auto;
 }
+
 textarea[name="profil_jaringan"]::placeholder {
   font-family: monospace;
   font-size: 13px;
-  color: #9CA3AF; 
+  color: #9CA3AF;
 }
 
 input:focus,
@@ -331,7 +338,7 @@ textarea:focus {
   border: 1px solid #E5E7EB;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
 /* Table */
@@ -412,5 +419,83 @@ textarea:focus {
 
 .table-actions .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Benefit / Keuntungan */
+
+#benefits {
+  background: #f9fafb;
+  padding: 40px 20px;
+  margin-top: 40px;
+}
+
+#benefits h2 {
+  text-align: center;
+  font-size: 1.35rem;
+  margin-bottom: 2rem;
+}
+
+.grid-container {
+  width: min(75rem, 100%);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: 2rem;
+}
+
+.cardbenefit {
+  --grad: rgb(175, 197, 253), rgb(41, 172, 238);
+  padding: 2rem;
+  background-image: linear-gradient(to bottom left, #ffffff, #f2f6f9);
+  border-radius: 2rem;
+  gap: 1.5rem;
+  display: grid;
+  grid-template: 'title icon' 'content content' 'bar bar' / 1fr auto;
+  font-family: system-ui, sans-serif;
+  color: #444447;
+  box-shadow:
+    inset -2px 2px hsl(0 0 100% / 1),
+    -20px 20px 40px hsla(0, 0%, 76%, 0.25);
+
+  .title {
+    font-size: 1.3rem;
+    grid-area: title;
+    align-self: end;
+    text-transform: uppercase;
+    font-weight: 500;
+    word-break: break-all;
+
+  }
+
+  .icon {
+    grid-area: icon;
+    font-size: 2.3rem;
+
+    >i {
+      color: transparent;
+      background: linear-gradient(to right, var(--grad));
+      background-clip: text;
+    }
+  }
+
+  .content {
+    grid-area: content;
+
+    &>*:first-child {
+      margin-top: 0rem
+    }
+
+    &>*:last-child {
+      margin-bottom: 0rem
+    }
+  }
+
+  &::after {
+    content: "";
+    grid-area: bar;
+    height: 2px;
+    background-image: linear-gradient(90deg, var(--grad));
+    margin-inline: -1.5rem;
+  }
 }
