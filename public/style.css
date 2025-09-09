@@ -101,6 +101,10 @@ textarea {
   color: #374151;
 }
 
+.info-card #benefit-list li {
+  margin-bottom: 8px;
+}
+
 .note {
   font-size: 14px;
   color: #6B7280;
@@ -445,7 +449,6 @@ textarea:focus {
 }
 
 .cardbenefit {
-  --grad: rgb(175, 197, 253), rgb(41, 172, 238);
   padding: 2rem;
   background-image: linear-gradient(to bottom left, #ffffff, #f2f6f9);
   border-radius: 2rem;
@@ -466,17 +469,6 @@ textarea:focus {
     font-weight: 500;
     word-break: break-all;
 
-  }
-
-  .icon {
-    grid-area: icon;
-    font-size: 2.3rem;
-
-    >i {
-      color: transparent;
-      background: linear-gradient(to right, var(--grad));
-      background-clip: text;
-    }
   }
 
   .content {

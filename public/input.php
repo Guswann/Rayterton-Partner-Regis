@@ -185,58 +185,6 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <!-- Benefit -->
-    <section id="benefits">
-        <h2>Keuntungan Menjadi Partner</h2>
-        <div class="grid-container">
-            <div class="cardbenefit">
-                <div class="title">Potensi Penghasilan</div>
-                <div class="icon"><i class="fa-thin fa-laptop-code"></i></div>
-                <div class="content">
-                    <p>Komisi persentase dari setiap pembayaran yang berhasil, termasuk proyek software dan training.</p>
-                </div>
-            </div>
-
-            <!-- <div class="cardbenefit">
-                <div class="title">Mudah & Ringkas</div>
-                <div class="icon"><i class="fa-thin fa-shield-check"></i></div>
-                <div class="content">
-                    <p>Cukup referensikan. Tim Rayterton menangani presales, demo, proposal, dan delivery.</p>
-                </div>
-            </div>
-
-            <div class="cardbenefit">
-                <div class="title">Materi Promosi</div>
-                <div class="icon"><i class="fa-thin fa-wrench-simple"></i></div>
-                <div class="content">
-                    <p>Deck presentasi, one-pager, studi kasus, dan konten marketing siap pakai.</p>
-                </div>
-            </div>
-            <div class="cardbenefit">
-                <div class="title">Pelacakan Referral</div>
-                <div class="icon"><i class="fa-thin fa-wrench-simple"></i></div>
-                <div class="content">
-                    <p>Kode/link unik dan laporan status prospek hingga pencairan komisi.</p>
-                </div>
-            </div>
-            <div class="cardbenefit">
-                <div class="title">Fleksibel</div>
-                <div class="icon"><i class="fa-thin fa-wrench-simple"></i></div>
-                <div class="content">
-                    <p>Tidak ada kuota minimum. Cocok untuk konsultan, asosiasi, kampus, komunitas bisnis, dan integrator.</p>
-                </div>
-            </div>
-            <div class="cardbenefit">
-                <div class="title">Brand Terpercaya</div>
-                <div class="icon"><i class="fa-thin fa-wrench-simple"></i></div>
-                <div class="content">
-                    <p>Sejak 2003, Rayterton memiliki 70+ modul software lintas industri dan training praktis untuk profesional.</p>
-                </div>
-            </div> -->
-        </div>
-    </section>
-    <!-- Benefit End -->
-
     <div class="container">
         <h1 class="title">Partner Registration</h1>
         <p class="subtitle">
@@ -334,7 +282,65 @@ if (isset($_POST['submit'])) {
             </div>
 
             <!-- INFO BOX -->
+            <!-- <h2>Keuntungan Menjadi Partner</h2>
+                <div class="grid-container">
+                    <div class="cardbenefit">
+                        <div class="title">Potensi Penghasilan</div>
+                        <div class="icon"><i class="fa-thin fa-laptop-code"></i></div>
+                        <div class="content">
+                            <p>Komisi persentase dari setiap pembayaran yang berhasil, termasuk proyek software dan training.</p>
+                        </div>
+                    </div>
+
+                    <div class="cardbenefit">
+                        <div class="title">Mudah & Ringkas</div>
+                        <div class="icon"><i class="fa-thin fa-shield-check"></i></div>
+                        <div class="content">
+                            <p>Cukup referensikan. Tim Rayterton menangani presales, demo, proposal, dan delivery.</p>
+                        </div>
+                    </div>
+
+                    <div class="cardbenefit">
+                        <div class="title">Materi Promosi</div>
+                        <div class="icon"><i class="fa-thin fa-wrench-simple"></i></div>
+                        <div class="content">
+                            <p>Deck presentasi, one-pager, studi kasus, dan konten marketing siap pakai.</p>
+                        </div>
+                    </div>
+                    <div class="cardbenefit">
+                        <div class="title">Pelacakan Referral</div>
+                        <div class="icon"><i class="fa-thin fa-wrench-simple"></i></div>
+                        <div class="content">
+                            <p>Kode/link unik dan laporan status prospek hingga pencairan komisi.</p>
+                        </div>
+                    </div>
+                    <div class="cardbenefit">
+                        <div class="title">Fleksibel</div>
+                        <div class="icon"><i class="fa-thin fa-wrench-simple"></i></div>
+                        <div class="content">
+                            <p>Tidak ada kuota minimum. Cocok untuk konsultan, asosiasi, kampus, komunitas bisnis, dan integrator.</p>
+                        </div>
+                    </div>
+                    <div class="cardbenefit">
+                        <div class="title">Brand Terpercaya</div>
+                        <div class="icon"><i class="fa-thin fa-wrench-simple"></i></div>
+                        <div class="content">
+                            <p>Sejak 2003, Rayterton memiliki 70+ modul software lintas industri dan training praktis untuk profesional.</p>
+                        </div>
+                    </div>
+                </div> -->
+
             <div class="card2 info-card">
+                <h2>What The Benefits For Being a Partner With Us?</h2>
+                <ol class="benefit-list">
+                    <li>Attractive commission from successful payments, including software projects and training.</li>
+                    <li>Simple referral process. Our team handles presales, demos, proposals, and delivery.</li>
+                    <li>Ready-to-use promotional materials: presentation decks, one-pagers, case studies, and marketing content.</li>
+                    <li>Unique referral code/link and status reports from prospecting to commission disbursement.</li>
+                    <li>No minimum quota. Suitable for consultants, associations, campuses, business communities, and integrators.</li>
+                    <li>Trusted brand since 2003 with 70+ software modules across industries and practical training for professionals.</li>
+                </ol>
+
                 <h2>What Happens After Registration?</h2>
                 <ol>
                     <li>Data verification and training alignment.</li>
