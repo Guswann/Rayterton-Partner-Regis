@@ -197,7 +197,7 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
 
-            <div class="cardbenefit">
+            <!-- <div class="cardbenefit">
                 <div class="title">Mudah & Ringkas</div>
                 <div class="icon"><i class="fa-thin fa-shield-check"></i></div>
                 <div class="content">
@@ -232,7 +232,7 @@ if (isset($_POST['submit'])) {
                 <div class="content">
                     <p>Sejak 2003, Rayterton memiliki 70+ modul software lintas industri dan training praktis untuk profesional.</p>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
     <!-- Benefit End -->
