@@ -2,6 +2,9 @@
 require '../backend/dbconnection.php';
 
 // Proses insert
+
+$alertScript = ""; // variabel untuk menampung JS alert
+
 if (isset($_POST['submit'])) {
     $jenis_partner = $_POST['jenis_partner'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -19,81 +22,81 @@ if (isset($_POST['submit'])) {
         $check->close();
 
         if ($countKode > 0) {
-            echo "<script>alert('Kode institusi sudah dipakai, silakan gunakan kode lain!'); window.history.back();</script>";
-            exit;
+            $alertScript = "
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Institution code already in use',
+                    text: 'Please use a different code!'
+                }).then(() => { window.history.back(); });
+            ";
         }
 
         // Cek duplikat email
-        $check = $conn->prepare("SELECT COUNT(*) FROM institusi_partner WHERE email = ?");
-        $check->bind_param("s", $email);
-        $check->execute();
-        $check->bind_result($countEmail);
-        $check->fetch();
-        $check->close();
+        if ($alertScript === "") {
+            $check = $conn->prepare("SELECT COUNT(*) FROM institusi_partner WHERE email = ?");
+            $check->bind_param("s", $email);
+            $check->execute();
+            $check->bind_result($countEmail);
+            $check->fetch();
+            $check->close();
 
-        if ($countEmail > 0) {
-            echo "<script>alert('Email sudah terdaftar, silakan gunakan email lain!'); window.history.back();</script>";
-            exit;
+            if ($countEmail > 0) {
+                $alertScript = "
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Email is already registered',
+                        text: 'Please use a different email!'
+                    }).then(() => { window.history.back(); });
+                ";
+            }
         }
 
-        // Baru insert
-        $stmt = $conn->prepare("INSERT INTO institusi_partner 
-        (kode_institusi_partner, nama_institusi, nama_partner, whatsapp, email, password, profil_jaringan, segment_industri_fokus, promo_suggestion, referral_awal, active_status, discount_pct) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+        // Insert kalau tidak ada error
+        if ($alertScript === "") {
+            $stmt = $conn->prepare("INSERT INTO institusi_partner 
+            (kode_institusi_partner, nama_institusi, nama_partner, whatsapp, email, password, profil_jaringan, segment_industri_fokus, promo_suggestion, referral_awal, active_status, discount_pct) 
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 
-        $active_status = 1;
-        $discount_pct = 0;
+            $active_status = 1;
+            $discount_pct = 0;
 
-        $stmt->bind_param(
-            "ssssssssssii",
-            $_POST['kode_institusi_partner'],
-            $_POST['nama_institusi'],
-            $_POST['nama_partner'],
-            $_POST['whatsapp'],
-            $email,
-            $password,
-            $_POST['profil_jaringan'],
-            $_POST['segment_industri_fokus'],
-            $_POST['promo_suggestion'],
-            $_POST['referral_awal'],
-            $active_status,
-            $discount_pct
-        );
-    } else {
-        // Insert ke tabel individual_promocodes
-        $stmt = $conn->prepare("INSERT INTO individual_promocodes
-            (promo_code, nama_lengkap, whatsapp, email, password, profil_jaringan, segment_industri_fokus, promo_suggestion, referral_awal, active_yn, discount_pct) 
-            VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt->bind_param(
+                "ssssssssssii",
+                $_POST['kode_institusi_partner'],
+                $_POST['nama_institusi'],
+                $_POST['nama_partner'],
+                $_POST['whatsapp'],
+                $email,
+                $password,
+                $_POST['profil_jaringan'],
+                $_POST['segment_industri_fokus'],
+                $_POST['promo_suggestion'],
+                $_POST['referral_awal'],
+                $active_status,
+                $discount_pct
+            );
 
-        $active_yn = 1;
-        $discount_pct = 0;
+            if ($stmt->execute()) {
+                $alertScript = "
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thank you for registering',
+                        text: 'We will contact you within the next few days.'
+                    }).then(() => { window.location = 'index.php'; });
+                ";
+            } else {
+                $alertScript = "
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'An error occurred: " . addslashes($stmt->error) . "'
+                    });
+                ";
+            }
 
-        $stmt->bind_param(
-            "ssssssssssi",
-            $_POST['promo_code'],
-            $_POST['nama_lengkap'],
-            $_POST['whatsapp'],
-            $_POST['email'],
-            $password,
-            $_POST['profil_jaringan'],
-            $_POST['segment_industri_fokus'],
-            $_POST['promo_suggestion'],
-            $_POST['referral_awal'],
-            $active_yn,
-            $discount_pct
-        );
+            $stmt->close();
+        }
     }
-
-    if ($stmt->execute()) {
-        echo "<script>
-        alert('Terima kasih sudah mendaftar, kami akan menghubungi anda dalam beberapa hari ke depan.');
-        window.location='index.php';
-    </script>";
-    } else {
-        echo "<script>alert('Error: " . $stmt->error . "');</script>";
-    }
-
-    $stmt->close();
 }
 ?>
 <!DOCTYPE html>
@@ -104,6 +107,8 @@ if (isset($_POST['submit'])) {
     <title>Partner Registration</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <style>
         .individual-only,
         .institution-only {
@@ -287,6 +292,15 @@ if (isset($_POST['submit'])) {
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            <?php if (!empty($alertScript)) echo $alertScript; ?>
+        });
+    </script>
+
+
 </body>
 
 <script>
