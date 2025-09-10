@@ -105,6 +105,12 @@ textarea {
   margin-bottom: 8px;
 }
 
+.info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
 .note {
   font-size: 14px;
   color: #6B7280;

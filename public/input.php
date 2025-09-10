@@ -329,24 +329,29 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                 </div> -->
+            <div class="info-box">
+                <div class="card2 info-card">
+                    <h2>What The Benefits For Being a Partner With Us?</h2>
+                    <ol class="benefit-list">
+                        <li>Attractive commission from successful payments, including software projects and training.</li>
+                        <li>Simple referral process. Our team handles presales, demos, proposals, and delivery.</li>
+                        <li>Ready-to-use promotional materials: presentation decks, one-pagers, case studies, and marketing content.</li>
+                        <li>Unique referral code/link and status reports from prospecting to commission disbursement.</li>
+                        <li>No minimum quota. Suitable for consultants, associations, campuses, business communities, and integrators.</li>
+                        <li>Trusted brand since 2003 with 70+ software modules across industries and practical training for professionals.</li>
+                    </ol>
+                </div>
 
-            <div class="card2 info-card">
-                <h2>What The Benefits For Being a Partner With Us?</h2>
-                <ol class="benefit-list">
-                    <li>Attractive commission from successful payments, including software projects and training.</li>
-                    <li>Simple referral process. Our team handles presales, demos, proposals, and delivery.</li>
-                    <li>Ready-to-use promotional materials: presentation decks, one-pagers, case studies, and marketing content.</li>
-                    <li>Unique referral code/link and status reports from prospecting to commission disbursement.</li>
-                    <li>No minimum quota. Suitable for consultants, associations, campuses, business communities, and integrators.</li>
-                    <li>Trusted brand since 2003 with 70+ software modules across industries and practical training for professionals.</li>
-                </ol>
+                <div class="card2 info-card">
 
-                <h2>What Happens After Registration?</h2>
-                <ol>
-                    <li>Data verification and training alignment.</li>
-                    <li>Kick-off call: product overview and referral process.</li>
-                    <li>Issuance of unique referral link/code, promotional materials, and PIC contact.</li>
-                </ol>
+                    <h2>What Happens After Registration?</h2>
+                    <ol>
+                        <li>Data verification and training alignment.</li>
+                        <li>Kick-off call: product overview and referral process.</li>
+                        <li>Issuance of unique referral link/code, promotional materials, and PIC contact.</li>
+                    </ol>
+                </div>
+
             </div>
         </div>
     </div>
