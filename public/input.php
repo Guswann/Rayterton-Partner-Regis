@@ -96,6 +96,94 @@ if (isset($_POST['submit'])) {
 
             $stmt->close();
         }
+    } else {
+        // Proses untuk individual
+        $promo_code = $_POST['promo_code'];
+        $nama_lengkap = $_POST['nama_lengkap'];
+        $email = $_POST['email'];
+
+        // Cek duplikat promo code
+        $check = $conn->prepare("SELECT COUNT(*) FROM individual_promocodes WHERE promo_code = ?");
+        $check->bind_param("s", $promo_code);
+        $check->execute();
+        $check->bind_result($countPromo);
+        $check->fetch();
+        $check->close();
+
+        if ($countPromo > 0) {
+            $alertScript = "
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Promo code already in use',
+                    text: 'Please use a different promo code!'
+                }).then(() => { window.history.back(); });
+            ";
+        }
+
+        // Cek duplikat email
+        if ($alertScript === "") {
+            $check = $conn->prepare("SELECT COUNT(*) FROM individual_promocodes WHERE email = ?");
+            $check->bind_param("s", $email);
+            $check->execute();
+            $check->bind_result($countEmail);
+            $check->fetch();
+            $check->close();
+
+            if ($countEmail > 0) {
+                $alertScript = "
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Email is already registered',
+                        text: 'Please use a different email!'
+                    }).then(() => { window.history.back(); });
+                ";
+            }
+        }
+
+        // Insert jika tidak ada error
+        if ($alertScript === "") {
+            $stmt = $conn->prepare("INSERT INTO individual_promocodes 
+                (promo_code, nama_lengkap, whatsapp, email, password, profil_jaringan, segment_industri_fokus, promo_suggestion, referral_awal, active_yn, discount_pct) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+            $active_status = 1;
+            $discount_pct = 0;
+
+            $stmt->bind_param(
+                "ssssssssiii",
+                $promo_code,
+                $nama_lengkap,
+                $_POST['whatsapp'],
+                $email,
+                $password,
+                $_POST['profil_jaringan'],
+                $_POST['segment_industri_fokus'],
+                $_POST['promo_suggestion'],
+                $_POST['referral_awal'],
+                $active_status,
+                $discount_pct
+            );
+
+            if ($stmt->execute()) {
+                $alertScript = "
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thank you for registering',
+                        text: 'We will contact you within the next few days.'
+                    }).then(() => { window.location = 'index.php'; });
+                ";
+            } else {
+                $alertScript = "
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'An error occurred: " . addslashes($stmt->error) . "'
+                    });
+                ";
+            }
+
+            $stmt->close();
+        }
     }
 }
 ?>
