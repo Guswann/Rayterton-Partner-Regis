@@ -264,10 +264,10 @@ if (isset($_POST['submit'])) {
                         <input type="text" name="segment_industri_fokus" placeholder="e.g. Government, Finance, Education">
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Promo Suggestion Code (Referral Code)</label>
                         <input type="text" name="promo_suggestion" placeholder="Suggested referral code">
-                    </div>
+                    </div> -->
 
                     <div class="form-group">
                         <label>Referred By (Optional)</label>
