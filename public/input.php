@@ -97,12 +97,12 @@ if (isset($_POST['submit'])) {
             $stmt->close();
         }
     } else {
-        // Proses untuk individual
+        // ini biar data masuk ke tabel individual_promocodes
         $promo_code = $_POST['promo_code'];
         $nama_lengkap = $_POST['nama_lengkap'];
         $email = $_POST['email'];
 
-        // Cek duplikat promo code
+
         $check = $conn->prepare("SELECT COUNT(*) FROM individual_promocodes WHERE promo_code = ?");
         $check->bind_param("s", $promo_code);
         $check->execute();
@@ -120,7 +120,6 @@ if (isset($_POST['submit'])) {
             ";
         }
 
-        // Cek duplikat email
         if ($alertScript === "") {
             $check = $conn->prepare("SELECT COUNT(*) FROM individual_promocodes WHERE email = ?");
             $check->bind_param("s", $email);
@@ -140,7 +139,7 @@ if (isset($_POST['submit'])) {
             }
         }
 
-        // Insert jika tidak ada error
+
         if ($alertScript === "") {
             $stmt = $conn->prepare("INSERT INTO individual_promocodes 
                 (promo_code, nama_lengkap, whatsapp, email, password, profil_jaringan, segment_industri_fokus, promo_suggestion, referral_awal, active_yn, discount_pct) 
