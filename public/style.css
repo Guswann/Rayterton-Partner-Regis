@@ -497,3 +497,13 @@ textarea:focus {
     margin-inline: -1.5rem;
   }
 }
+
+/* Hilangkan jarak kosong kalau semua anak hidden */
+.form-row:has(.institution-only[style*="display: none"], .individual-only[style*="display: none"]) {
+    margin-bottom: 0;
+}
+
+/* Atau lebih aman: kalau form-row ternyata kosong, jarak nol */
+.form-row:empty {
+    margin-bottom: 0 !important;
+}

@@ -533,6 +533,13 @@ if (isset($_POST['submit'])) {
                 field.required = false;
             });
         }
+        //fix jarak antar row
+        document.querySelectorAll('.form-row').forEach(row => {
+            const visible = Array.from(row.querySelectorAll('input, textarea'))
+                .some(field => field.parentElement.style.display !== 'none');
+            row.style.marginBottom = visible ? "15px" : "0";
+        });
+
     }
 </script>
 
