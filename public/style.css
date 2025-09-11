@@ -166,7 +166,7 @@ body {
 
 /* ====== Card Box ====== */
 .card {
-  background: #fff;
+  background: #faf9f9;
   border: 1px solid #E5E7EB;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
@@ -175,7 +175,7 @@ body {
 }
 
 .card2 {
-  background: #fff;
+  background: #faf9f9;
   border: 1px solid #E5E7EB;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
